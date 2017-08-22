@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+<!--
+	<properties resource="conn.properties" />
+	  -->
+	  
+	 <classPathEntry location="D:\Workspace\jar\mysql-connector-java-5.1.26-bin.jar"/>
+	<!-- 指定运行环境是mybatis3的版本 -->
+	<context id="testTables" targetRuntime="MyBatis3">
+
+		<commentGenerator>
+		<!-- 是否取消注释 -->
+			<property name="suppressAllComments" value="true" />
+			 <!-- 是否生成注释代时间戳 -->
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<!-- jdbc 连接信息 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/scm?useUnicode=true&amp;characterEncoding=UTF-8" userId="root" password="root">
+		</jdbcConnection>
+		
+        <!-- targetPackage指定模型在生成在哪个包 ,targetProject指定项目的src,-->        
+		<javaModelGenerator targetPackage="cn.mobile.scm.entity"
+			targetProject="scm32/src">
+			<!-- 去除字段前后空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!-- 指定dao类生成在哪个包 -->
+		<sqlMapGenerator targetPackage="cn.mobile.scm.dao"
+			targetProject="scm32/src" />
+		<javaClientGenerator type="XMLMAPPER" targetPackage="cn.mobile.dao" targetProject="scm32/src" />
+
+ 		<table tableName="account" domainObjectName="Account" /> 
+			
+		<table tableName="supplier" domainObjectName="Supplier" />
+		<!-- 	<table tableName="sys_param" domainObjectName="SysParam" />
+				
+				<table tableName="account_records" domainObjectName="AccountRecords" />
+				<table tableName="buy_order" domainObjectName="BuyOrder" />
+				<table tableName="buy_order_detail" domainObjectName="BuyOrderDetail" /> -->
+				
+				<table tableName="goods" domainObjectName="Goods" />
+	
+	</context>
+</generatorConfiguration>

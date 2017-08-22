@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.mobile.scm.dao.BuyOrderDetailMapper" >
+  <resultMap id="buyOrderDetailResultMap" type="cn.mobile.scm.entity.BuyOrderDetail" >
+    <id column="bod_id" property="bodId" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="VARCHAR" />
+    <result column="goods_color" property="goodsColor" jdbcType="VARCHAR" />
+    <result column="bod_amount" property="bodAmount" jdbcType="INTEGER" />
+    <result column="bod_buy_price" property="bodBuyPrice" jdbcType="DECIMAL" />
+    <result column="bod_total_price" property="bodTotalPrice" jdbcType="DECIMAL" />
+    <result column="bod_imei_list" property="bodImeiList" jdbcType="LONGVARCHAR" />    
+    <result column="bo_id" property="boId" jdbcType="VARCHAR" />    
+  </resultMap>
+ 
+ <!-- insert into account (acc_login,acc_pass) values ('admin3','admin3'),('admin4','admin4')
+  -->
+  <insert id="insertList" >  
+    insert into buy_order_detail (bod_id, goods_id, goods_name, 
+      goods_unit, goods_type, goods_color, 
+      bod_amount, bod_buy_price, bod_total_price, 
+      bo_id, bod_imei_list)
+    values
+    <foreach collection="list" item="item" separator="," >
+     (#{item.bodId,jdbcType=VARCHAR}, #{item.goodsId,jdbcType=VARCHAR}, #{item.goodsName,jdbcType=VARCHAR}, 
+      #{item.goodsUnit,jdbcType=VARCHAR}, #{item.goodsType,jdbcType=VARCHAR}, #{item.goodsColor,jdbcType=VARCHAR}, 
+      #{item.bodAmount,jdbcType=INTEGER}, #{item.bodBuyPrice,jdbcType=DECIMAL}, #{item.bodTotalPrice,jdbcType=DECIMAL}, 
+      #{item.boId,jdbcType=VARCHAR}, #{item.bodImeiList,jdbcType=LONGVARCHAR})
+      </foreach>
+  </insert>
+  </mapper>

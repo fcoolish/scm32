@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.mobile.scm.dao.SupplierMapper" >
+  <resultMap id="supplierResultMap" type="cn.mobile.scm.entity.Supplier" >
+    <id column="sup_id" property="supId" jdbcType="INTEGER" />
+    <result column="sup_name" property="supName" jdbcType="VARCHAR" />
+    <result column="sup_linkman" property="supLinkman" jdbcType="VARCHAR" />
+    <result column="sup_phone" property="supPhone" jdbcType="VARCHAR" />
+    <result column="sup_address" property="supAddress" jdbcType="VARCHAR" />
+    <result column="sup_remark" property="supRemark" jdbcType="VARCHAR" />
+    <result column="sup_pay" property="supPay"/>
+    <result column="sup_type" property="supType" />
+  </resultMap>
+  
+	
+	<insert id="insert" parameterType="supplier">
+		insert into supplier
+		(sup_id,sup_name,sup_linkman,sup_phone,sup_address,sup_remark,sup_type,sup_pay)
+		values
+		(#{supId},#{supName},#{supLinkman},#{supPhone},#{supAddress},#{supRemark},#{supType},#{supPay});
+	</insert>
+	<!-- 根据主键修改供应商信息 -->
+	<update id="update" parameterType="supplier">
+	update supplier set
+	sup_name=#{supName},sup_linkman=#{supLinkman},sup_phone=#{supPhone},
+	sup_address=#{supAddress},sup_remark=#{supRemark},sup_type=#{supType},sup_pay=#{supPay}
+	where
+	sup_id=#{supId}
+	</update>
+  	<!-- 通过关键字分页查询 返回数据集-->
+  	<select id="selectPageList" parameterType="page" resultMap="supplierResultMap">
+  	select * from supplier where sup_name like #{keyWord} limit #{start},#{rows}		
+  	</select>
+   <!--通过关键字查询返回总记录数  -->
+    <select id="selectPageCount" parameterType="page" resultType="Integer">
+    	select count(1) from supplier where sup_name like #{keyWord}
+    </select>
+    
+    <!-- 通过多条件分页查询,返回数据集 -->
+    <select id="selectPageListUseDyc" parameterType="page" resultMap="supplierResultMap">
+  	select * from supplier 	
+  	<where>
+  		 <if test="paramEntity.supName!=null">and sup_name like #{paramEntity.supName}</if>
+  		 <if test="paramEntity.supAddress!=null">and sup_address like #{paramEntity.supAddress}</if>  	
+  	</where>	
+  	 limit #{start},#{rows}
+  	</select>
+    
+    
+    <!--通过多条件分页查询，返回总记录数 -->
+    <select id="selectPageCountUseDyc" parameterType="page" resultType="Integer">
+    	select count(1) from supplier 
+    	<where>
+  		 <if test="paramEntity.supName!=null">and sup_name like #{paramEntity.supName}</if>
+  		 <if test="paramEntity.supAddress!=null">and sup_address like #{paramEntity.supAddress}</if>  	
+  	</where>
+    </select>
+    
+    <!-- 通过主键批量删除供应商 -->
+     <delete id="deleteList">
+     	delete from supplier where sup_id in
+     	<foreach collection="array" open="(" close=")" separator="," item="pk">
+     		#{pk}
+     	</foreach>
+     </delete>
+     
+     <select id="selectSupplier" parameterType="map" resultType="map">
+  	<![CDATA[ 
+  	select sum(ar_payable) total,sup_name from account_records inner join supplier 
+  	on account_records.sup_id=supplier.sup_id 
+  	where ar_date >#{start} and ar_date<=#{end} and ar_bus_type='bo' 
+  	group by sup_name  	
+  	 ]]>
+  </select>
+</mapper>

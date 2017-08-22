@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.mobile.scm.dao.BuyOrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.mobile.scm.entity.BuyOrder" >
+    <id column="bo_id" property="boId" jdbcType="VARCHAR" />
+    <result column="sup_id" property="supId" jdbcType="INTEGER" />
+    <result column="sh_id" property="shId" jdbcType="VARCHAR" />
+    <result column="bo_date" property="boDate" jdbcType="DATE" />
+    <result column="bo_payable" property="boPayable" jdbcType="DECIMAL" />
+    <result column="bo_paid" property="boPaid" jdbcType="DECIMAL" />
+    <result column="bo_arrears" property="boArrears" jdbcType="DECIMAL" />
+    <result column="bo_original" property="boOriginal" jdbcType="VARCHAR" />
+    <result column="bo_remark" property="boRemark" jdbcType="VARCHAR" />
+    <result column="bo_attn" property="boAttn" jdbcType="VARCHAR" />
+    <result column="bo_operator" property="boOperator" jdbcType="INTEGER" />
+  </resultMap>
+ 
+  <insert id="insert" parameterType="cn.mobile.scm.entity.BuyOrder" >
+    insert into buy_order (bo_id, sup_id, sh_id, 
+      bo_date, bo_payable, bo_paid, 
+      bo_arrears, bo_original, bo_remark, 
+      bo_attn, bo_operator)
+    values (#{boId,jdbcType=VARCHAR}, #{supId,jdbcType=INTEGER}, #{shId,jdbcType=VARCHAR}, 
+      #{boDate,jdbcType=DATE}, #{boPayable,jdbcType=DECIMAL}, #{boPaid,jdbcType=DECIMAL}, 
+      #{boArrears,jdbcType=DECIMAL}, #{boOriginal,jdbcType=VARCHAR}, #{boRemark,jdbcType=VARCHAR}, 
+      #{boAttn,jdbcType=VARCHAR}, #{boOperator,jdbcType=INTEGER})
+  </insert>
+  
+</mapper>

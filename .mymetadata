@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="scm32"
+  id="myeclipse.1502357152817"
+  context-root="/scm32"
+  j2ee-spec="5.0"
+  archive="scm32.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
