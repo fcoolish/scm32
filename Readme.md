@@ -1,4 +1,4 @@
-# 手机进销存管理系统
+## 手机进销存管理系统
 
 开发环境：Windows7、MyEclipse+Tomcat7.0、Mysql5.7等开发工具。
 
